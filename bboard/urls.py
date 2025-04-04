@@ -6,3 +6,4 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('', index, name='index'),
 ]
+
