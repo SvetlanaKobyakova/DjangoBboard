@@ -9,11 +9,18 @@ class Post(models.Model):
     rooms = models.IntegerField(verbose_name='Количество комнат')
     square = models.FloatField(verbose_name='Площадь квартиры')
     floor = models.IntegerField(verbose_name='Этаж')
-    price = models.FloatField(verbose_name='Стоимость объекта')
-    text = models.TextField(verbose_name='Описание объекта')
-    address = models.TextField(verbose_name='Адрес объекта')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Стоимость объекта')
+    address = models.CharField(max_length=500,verbose_name='Адрес объекта')
     metro = models.CharField(max_length=200, verbose_name='Метро')
+    text = models.TextField(verbose_name='Описание объекта')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     create_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания', editable=False)
+
+    class Meta:
+        verbose_name = 'Объявление'
+        verbose_name_plural = 'Объявления'
+
+    def __str__(self):
+        return self.title
 
 
