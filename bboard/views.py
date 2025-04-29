@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.template.context_processors import request
+
 from .models import Post
 from .forms import PostForm
 
@@ -14,6 +16,31 @@ def about(request):
     return render(request, template_name='bboard/about.html', context=context)
 
 def add_post(request):
-    post_form = PostForm()
-    context = {'form': post_form}
-    return render(request, template_name='bboard/post_add.html', context=context)
+    if request.method == 'GET':
+        post_form = PostForm()
+        context = {'form': post_form}
+        return render(request, template_name='bboard/post_add.html', context=context)
+
+    if request.method == 'POST':
+        post_form = PostForm(data=request.POST)
+        if post_form.is_valid():
+            post = Post()
+            post.title = post_form.cleaned_data['title']
+            post.rooms = post_form.cleaned_data['rooms']
+            post.square = post_form.cleaned_data['square']
+            post.floor = post_form.cleaned_data['floor']
+            post.price = post_form.cleaned_data['price']
+            post.metro = post_form.cleaned_data['metro']
+            post.city = post_form.cleaned_data['city']
+            post.street = post_form.cleaned_data['street']
+            post.house = post_form.cleaned_data['house']
+            post.apartment = post_form.cleaned_data['apartment']
+            post.text = post_form.cleaned_data['text']
+            post.author = post_form.cleaned_data['author']
+            post.save()
+            return index(request)
+        return None
+    return None
+
+
+
