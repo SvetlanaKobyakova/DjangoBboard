@@ -1,0 +1,17 @@
+{% extends 'bboard/base.html' %}
+
+{% block content %}
+
+<h3>Информация об объекте №  {{ post.pk }}</h3>
+<!--# отобразить информацию о посте, добавить детализацию по объявлению-->
+    <h4><b>{{ post.title }}</b></h4>
+    {{ post.rooms }}-комнатная, {{ post.square }} кв.м
+    <p>{{ post.floor }} этаж</p>
+    <h5>Цена {{ post.price }}</h5>
+    Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
+    <p>Метро {{ post.metro }}</p>
+    <p>{{ post.text }}</p>
+    <i>{{ post.author }}</i>
+    <p><i>{{ post.create_at }}</i></p>
+
+{% endblock content %}

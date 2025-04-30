@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from .models import Post
 
 
 class PostForm(forms.Form):
@@ -16,3 +16,23 @@ class PostForm(forms.Form):
     apartment = forms.CharField(max_length=200, label='Номер квартиры')
     text = forms.CharField(widget=forms.Textarea, label='Описание объекта')
     author = forms.ModelChoiceField(queryset=User.objects.all(), label='Автор')
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+        labels = {
+            'title': 'Заголовок',
+            'rooms': 'Количество комнат',
+            'square': 'Общая площадь квартиры',
+            'floor': 'Этаж',
+            'price': 'Цена',
+            'city': 'Город',
+            'metro': 'Метро',
+            'street': 'Улица',
+            'house': 'Номер дома',
+            'apartment': 'Номер квартиры',
+            'text': 'Описание объекта',
+            'author': 'Автор',
+        }

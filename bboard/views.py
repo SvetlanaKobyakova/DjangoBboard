@@ -18,7 +18,7 @@ def about(request):
 def add_post(request):
     if request.method == 'GET':
         post_form = PostForm()
-        context = {'form': post_form}
+        context = {'title': 'Добавить объявление','form': post_form}
         return render(request, template_name='bboard/post_add.html', context=context)
 
     if request.method == 'POST':
@@ -42,5 +42,8 @@ def add_post(request):
         return None
     return None
 
-
+def read_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    context = {'title': 'Информация об объекте', 'post': post}
+    return render(request, template_name='bboard/post_detail.html', context=context)
 
