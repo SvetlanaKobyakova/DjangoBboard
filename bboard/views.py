@@ -22,7 +22,7 @@ def add_post(request):
         return render(request, template_name='bboard/post_add.html', context=context)
 
     if request.method == 'POST':
-        post_form = PostForm(data=request.POST)
+        post_form = PostForm(data=request.POST, files=request.FILES)
         if post_form.is_valid():
             post = Post()
             post.title = post_form.cleaned_data['title']
@@ -37,6 +37,7 @@ def add_post(request):
             post.apartment = post_form.cleaned_data['apartment']
             post.text = post_form.cleaned_data['text']
             post.author = post_form.cleaned_data['author']
+            post.image = post_form.cleaned_data['image']
             post.save()
             return index(request)
         return None
@@ -47,3 +48,41 @@ def read_post(request, pk):
     context = {'title': 'Информация об объекте', 'post': post}
     return render(request, template_name='bboard/post_detail.html', context=context)
 
+def update_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    if request.method == 'POST':
+        post_form = PostForm(data=request.POST, files=request.FILES)
+        if post_form.is_valid():
+            post.title = post_form.cleaned_data['title']
+            post.rooms = post_form.cleaned_data['rooms']
+            post.square = post_form.cleaned_data['square']
+            post.floor = post_form.cleaned_data['floor']
+            post.price = post_form.cleaned_data['price']
+            post.metro = post_form.cleaned_data['metro']
+            post.city = post_form.cleaned_data['city']
+            post.street = post_form.cleaned_data['street']
+            post.house = post_form.cleaned_data['house']
+            post.apartment = post_form.cleaned_data['apartment']
+            post.text = post_form.cleaned_data['text']
+            post.author = post_form.cleaned_data['author']
+            post.image = post_form.cleaned_data['image']
+            post.save()
+            return read_post(request, pk=post.id)
+        return None
+    else:
+        post_form = PostForm(initial={
+            'title': post.title,
+            'rooms': post.rooms,
+            'square': post.square,
+            'floor': post.floor,
+            'price': post.price,
+            'metro': post.metro,
+            'city': post.city,
+            'street': post.street,
+            'house': post.house,
+            'apartment': post.apartment,
+            'text': post.text,
+            'author': post.author,
+            'image': post.image,
+        })
+        return render(request, template_name='bboard/post_edit.html', context={'form': post_form})

@@ -16,6 +16,7 @@ class PostForm(forms.Form):
     apartment = forms.CharField(max_length=200, label='Номер квартиры')
     text = forms.CharField(widget=forms.Textarea, label='Описание объекта')
     author = forms.ModelChoiceField(queryset=User.objects.all(), label='Автор')
+    image = forms.ImageField(required=False, label='Изображение')
 
 class NewPostForm(forms.ModelForm):
     class Meta:

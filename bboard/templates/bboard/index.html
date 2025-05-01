@@ -1,33 +1,45 @@
 {% extends 'bboard/base.html' %}
+{% load static %}
 
 {% block content %}
 <h1>Объявления</h1>
 
-{% for post in posts %}
-    <h4><b><a href="{% url 'bboard:read_post' pk=post.pk %}">{{ post.title }}</a></b></h4>
-    {{ post.rooms }}-комнатная, {{ post.square }} кв.м
-    <p>{{ post.floor }} этаж</p>
-    <h5>Цена {{ post.price }}</h5>
-    Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
-    <p>Метро {{ post.metro }}</p>
-    <a><i>{{ post.author }} {{ post.create_at }}</i></a>
+<!--<img src="{% static 'img/1.jpg' %}" width="200px" height="auto"-->
+<div class="post-list">
+    {% for post in posts %}
+        <div class="post-item">
+            <h4><b><a href="{% url 'bboard:read_post' pk=post.pk %}">{{ post.title }}</a></b></h4>
+            {{ post.rooms }}-комнатная, {{ post.square }} кв.м
+            <p>{{ post.floor }} этаж</p>
+            <div class="post-image"
+                {% if post.image %}
+                    <p><img src="{{ post.image.url }}" width="200px" height="auto"></p>
+                {% else %}
+                    <p><img src="{% static 'img/no_image.png' %}" width="200px" height="auto"></p>
+                {% endif %}
+            </div>
+            <h5>Цена {{ post.price }}</h5>
+            Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
+            <p>Метро {{ post.metro }}</p>
+            <a><i>{{ post.author }} {{ post.create_at }}</i></a>
+        </div>
+    {% endfor %}
+</div>
 
-{% endfor %}
-
-<div class="card" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b>Недвижимость</b></li>
-            <li class="list-group-item">
-                <a href="#">Квартиры</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Дома, дачи, коттеджи</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Земельные участки</a>
-            </li>
-        </ul>
-      </div>
+<!--<div class="card" style="width: 18rem;">-->
+<!--        <ul class="list-group list-group-flush">-->
+<!--            <li class="list-group-item"><b>Недвижимость</b></li>-->
+<!--            <li class="list-group-item">-->
+<!--                <a href="#">Квартиры</a>-->
+<!--            </li>-->
+<!--            <li class="list-group-item">-->
+<!--                <a href="#">Дома, дачи, коттеджи</a>-->
+<!--            </li>-->
+<!--            <li class="list-group-item">-->
+<!--                <a href="#">Земельные участки</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--      </div>-->
 
     <div class="footer">
         <p>&copy; 2023 Сайт объявлений.</p>
