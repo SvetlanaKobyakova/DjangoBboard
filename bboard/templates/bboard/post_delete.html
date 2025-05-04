@@ -1,0 +1,16 @@
+{% extends 'bboard/base.html' %}
+
+{% block content %}
+<h3>Удаление объявления</h3>
+<p>Автор - {{ post.author }}</p>
+<p>Заголовок - {{ post.title }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+    <a href="{% url 'bboard:index' %}">
+        <button type="button">Отменить</button>
+    </a>
+</form>
+
+{% endblock content %}

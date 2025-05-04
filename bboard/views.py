@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from django.template.context_processors import request
-
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
 
@@ -11,9 +9,11 @@ def index(request):
     context = {'title':'Главная страница', 'posts': posts}
     return render(request, template_name='bboard/index.html', context=context)
 
+
 def about(request):
     context = {'title': 'О сайте'}
     return render(request, template_name='bboard/about.html', context=context)
+
 
 def add_post(request):
     if request.method == 'GET':
@@ -43,13 +43,17 @@ def add_post(request):
         return None
     return None
 
-def read_post(request, pk):
-    post = Post.objects.get(pk=pk)
+
+def read_post(request, slug):
+    # post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, slug=slug)
     context = {'title': 'Информация об объекте', 'post': post}
     return render(request, template_name='bboard/post_detail.html', context=context)
 
+
 def update_post(request, pk):
-    post = Post.objects.get(pk=pk)
+    # post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         post_form = PostForm(data=request.POST, files=request.FILES)
         if post_form.is_valid():
@@ -67,7 +71,7 @@ def update_post(request, pk):
             post.author = post_form.cleaned_data['author']
             post.image = post_form.cleaned_data['image']
             post.save()
-            return read_post(request, pk=post.id)
+            return redirect('bboard:read_post', slug=post.slug)
         return None
     else:
         post_form = PostForm(initial={
@@ -86,3 +90,26 @@ def update_post(request, pk):
             'image': post.image,
         })
         return render(request, template_name='bboard/post_edit.html', context={'form': post_form})
+
+
+def delete_post(request, pk):
+    # post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
+    context = {'post': post}
+    if request.method == 'POST':
+        post.delete()
+        return redirect('bboard:index')
+    return render(request, template_name='bboard/post_delete.html', context=context)
+
+
+def page_not_found(request, exception):
+    return render(request, template_name='bboard/404.html', context={'title': '404'})
+
+
+def forbidden(request, exception):
+    return render(request, template_name='bboard/403.html', context={'title': '403'})
+
+
+def server_error(request):
+    return render(request, template_name='bboard/500.html', context={'title': '500'})
+

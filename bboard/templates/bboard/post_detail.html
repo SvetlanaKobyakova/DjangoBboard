@@ -1,24 +1,38 @@
 {% extends 'bboard/base.html' %}
 {% load static %}
+
 {% block content %}
 
 <h3>Информация об объекте №  {{ post.pk }}</h3>
 <!--# отобразить информацию о посте, добавить детализацию по объявлению-->
-    <h4><b>{{ post.title }}</b></h4>
-    {{ post.rooms }}-комнатная, {{ post.square }} кв.м
-    <p>{{ post.floor }} этаж</p>
+<h4><b>{{ post.title }}</b></h4>
+{{ post.rooms }}-комнатная, {{ post.square }} кв.м
+<p>{{ post.floor }} этаж</p>
 
-    {% if post.image %}
-        <p><img src="{{ post.image.url }}" width="400px" height="auto"></p>
-    {% else %}
-        <p><img src="{% static 'img/no_image.png' %}" width="400px" height="auto"></p>
-    {% endif %}
+{% if post.image %}
+    <p><img src="{{ post.image.url }}" width="400px" height="auto"></p>
+{% else %}
+    <p><img src="{% static 'img/no_image.png' %}" width="400px" height="auto"></p>
+{% endif %}
 
-    <p><h5>Цена {{ post.price }}</h5></p>
-    Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
-    <p>Метро {{ post.metro }}</p>
-    <p>{{ post.text }}</p>
-    <i>{{ post.author }}</i>
-    <p><i>{{ post.create_at }}</i></p>
+<p><h5>Цена {{ post.price }}</h5></p>
+Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
+<p>Метро {{ post.metro }}</p>
+<p>{{ post.text }}</p>
+<i>{{ post.author }}</i>
+<p><i>{{ post.create_at }}</i></p>
+
+<div class="btn-actions">
+    <div class="btn-edit-post">
+        <a href="{% url 'bboard:update_post' pk=post.id %}">
+            <button type="button">Редактировать</button>
+        </a>
+    </div>
+    <div class="btn-delete-post">
+        <a href="{% url 'bboard:delete_post' pk=post.id %}">
+            <button type="button">Удалить</button>
+        </a>
+    </div>
+</div>
 
 {% endblock content %}

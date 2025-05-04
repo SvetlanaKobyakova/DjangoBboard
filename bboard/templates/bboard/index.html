@@ -8,9 +8,11 @@
 <div class="post-list">
     {% for post in posts %}
         <div class="post-item">
-            <h4><b><a href="{% url 'bboard:read_post' pk=post.pk %}">{{ post.title }}</a></b></h4>
+
+            <h4><b><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></b></h4>
             {{ post.rooms }}-комнатная, {{ post.square }} кв.м
             <p>{{ post.floor }} этаж</p>
+
             <div class="post-image"
                 {% if post.image %}
                     <p><img src="{{ post.image.url }}" width="200px" height="auto"></p>
@@ -18,10 +20,12 @@
                     <p><img src="{% static 'img/no_image.png' %}" width="200px" height="auto"></p>
                 {% endif %}
             </div>
+
             <h5>Цена {{ post.price }}</h5>
             Адрес: {{ post.city }}, {{ post.street }}, {{ post.house }}, {{ post.apartment }}
             <p>Метро {{ post.metro }}</p>
             <a><i>{{ post.author }} {{ post.create_at }}</i></a>
+
         </div>
     {% endfor %}
 </div>
@@ -42,7 +46,7 @@
 <!--      </div>-->
 
     <div class="footer">
-        <p>&copy; 2023 Сайт объявлений.</p>
+        <p>&copy; 2025 Сайт объявлений.</p>
     </div>
 
 {% endblock content %}
