@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm, NewRegistrationForm
+from BboardSite.settings import LOGIN_REDIRECT_URL
 
 
 def register(request):
@@ -26,12 +28,29 @@ def register(request):
 
 
 def log_in(request):
-    pass
-
+    # создание формы аутенфикации
+    form = AuthenticationForm(request, request.POST)
+    #проверка формы
+    if form.is_valid():
+        # полученик логина и пароля из формы
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        # аутентификация пользователя
+        # проверка существования пользователя и корректности пароля
+        user = authenticate(username=username, password=password)
+        if user:
+            #авторизация пользователя
+            login(request, user)
+            # получение дальнейшего маршрута после входа на сайт
+            # next - путь, откуда пришел пользователь на страницу входа
+            url = request.GET.get('next', LOGIN_REDIRECT_URL)
+            return redirect(url)
+    context = {'form': form}
+    return render(request, template_name='users/login.html', context=context)
 
 def log_out(request):
-    pass
-
+    logout(request)
+    return redirect('bboard:index')
 
 def user_profile(request, pk):
     pass
