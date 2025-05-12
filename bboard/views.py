@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
-
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     # получение всех постов (select * from bboard_post)
@@ -14,7 +14,7 @@ def about(request):
     context = {'title': 'О сайте'}
     return render(request, template_name='bboard/about.html', context=context)
 
-
+@login_required
 def add_post(request):
     if request.method == 'GET':
         post_form = PostForm()
@@ -50,7 +50,7 @@ def read_post(request, slug):
     context = {'title': 'Информация об объекте', 'post': post}
     return render(request, template_name='bboard/post_detail.html', context=context)
 
-
+@login_required
 def update_post(request, pk):
     # post = Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
