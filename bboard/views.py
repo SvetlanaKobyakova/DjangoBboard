@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
-from django.contrib.auth.decorators import login_required
+
 
 def index(request):
-    # получение всех постов (select * from bboard_post)
-    posts = Post.objects.all()
-    context = {'title':'Главная страница', 'posts': posts}
+    # получение всех постов, отсортированных по дате публикации
+    # (select * from bboard_post order by created_at DESK)
+    posts = Post.objects.all().order_by('-created_at')
+    # показываем по три поста на странице
+    per_page = 4
+    paginator = Paginator(posts, per_page)
+    # получаем номер страницы из URL
+    page_number = request.GET.get('page')
+    # получаем объекты для текущей страницы
+    page_obj = paginator.get_page(page_number)
+    context = {'title':'Главная страница', 'page_obj': page_obj}
     return render(request, template_name='bboard/index.html', context=context)
 
 
