@@ -9,6 +9,7 @@ def index(request):
     # получение всех постов, отсортированных по дате публикации
     # (select * from bboard_post order by created_at DESK)
     posts = Post.objects.all().order_by('-created_at')
+    count_posts = Post.objects.count()
     # показываем по три поста на странице
     per_page = 4
     paginator = Paginator(posts, per_page)
@@ -16,12 +17,17 @@ def index(request):
     page_number = request.GET.get('page')
     # получаем объекты для текущей страницы
     page_obj = paginator.get_page(page_number)
-    context = {'title':'Главная страница', 'page_obj': page_obj}
+    context = {
+        'title':'Главная страница',
+        'page_obj': page_obj,
+        'count_posts': count_posts
+    }
     return render(request, template_name='bboard/index.html', context=context)
 
 
 def about(request):
-    context = {'title': 'О сайте'}
+    count_posts = Post.objects.count()
+    context = {'title': 'О сайте', 'count_posts': count_posts}
     return render(request, template_name='bboard/about.html', context=context)
 
 @login_required
