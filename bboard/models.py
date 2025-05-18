@@ -20,7 +20,7 @@ class Post(models.Model):
     text = models.TextField(verbose_name='Описание объекта')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания', editable=False)
-    image = models.ImageField(upload_to='posts/', null=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=200, unique=True, editable=False, null=True)
 
     def save(self, *args, **kwargs):
