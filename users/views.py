@@ -4,7 +4,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import RegistrationForm, NewRegistrationForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+
+from .forms import RegistrationForm, NewRegistrationForm, CustomPasswordChangeForm
 from BboardSite.settings import LOGIN_REDIRECT_URL
 
 
@@ -63,5 +66,19 @@ def user_profile(request, pk):
         raise PermissionDenied()
     context = {'user': user, 'title': 'Информация о пользователе'}
     return render(request, template_name='users/profile.html', context=context)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Ваш пароль успешно изменен')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибку')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+    return render(request, template_name='users/change_password.html', context={'form': form})
 
 
