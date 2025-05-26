@@ -63,9 +63,9 @@ class CustomPasswordChangeForm(SetPasswordForm):
     )
     def clean(self):
         cleaned_data = super().clean()
-        old_password = cleaned_data('old_password')
-        new_password1 = cleaned_data('new_password1')
-        new_password2 = cleaned_data('new_password2')
+        old_password = cleaned_data.get('old_password')
+        new_password1 = cleaned_data.get('new_password1')
+        new_password2 = cleaned_data.get('new_password2')
 
         if old_password and new_password1:
             if old_password == new_password1:

@@ -72,13 +72,32 @@ def change_password(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Ваш пароль успешно изменен')
+            old_password = form.cleaned_data['old_password']
+            if not request.user.check_password(old_password):
+                messages.error(request, 'Старый пароль не верный')
+            else:
+                user = form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Ваш пароль успешно изменен')
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибку')
     else:
         form = CustomPasswordChangeForm(request.user)
     return render(request, template_name='users/change_password.html', context={'form': form})
 
-
+# def change_password(request):
+#     if request.method == "POST":
+#         form = CustomPasswordChangeForm(request.user, request.POST)
+#         if form.is_valid():
+#             old_password = form.cleaned_data['old_password']
+#             if not request.user.check_password(old_password):
+#                 messages.error(request, 'Старый пароль не верный')
+#             else:
+#                 user = form.save()
+#                 update_session_auth_hash(request, user)
+#                 messages.success(request, 'Ваш пароль успешно изменен')
+#         else:
+#             messages.error(request, 'Пожалуйста, исправьте ошибки')
+#     else:
+#         form = CustomPasswordChangeForm(request.user)
+#     return render(request, template_name='users/change_password.html', context={'form': form})
