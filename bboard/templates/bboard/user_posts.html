@@ -1,0 +1,38 @@
+{% extends 'bboard/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if user == request.user %}
+    <h3>Мои объявления</h3>
+{% else %}:
+    <h3>Объявления пользователя {{ user.username }}</h3>
+{% endif %}
+
+<div class="post-list">
+    {% for post in posts %}
+        <div class="post-item">
+
+            <h4><b><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></b></h4>
+            {{ post.rooms }}-комнатная, {{ post.square }} кв.м
+            <p>{{ post.floor }} этаж</p>
+
+            <div class="post-image">
+                {% if post.image %}
+                    <p><img src="{{ post.image.url }}" width="200px" height="auto"></p>
+                {% else %}
+                    <p><img src="{% static 'img/no_image.png' %}" width="200px" height="auto"></p>
+                {% endif %}
+            </div>
+
+            <h5>Цена {{ post.price }}</h5>
+            Адрес: {{ post.city }}, {{ post.street }}, д.{{ post.house }}, кв.{{ post.apartment }}
+            <p>Метро {{ post.metro }}</p>
+            <a><i>{{ post.author }}</i></a>
+            <p><i>{{ post.created_at }}</i></p>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

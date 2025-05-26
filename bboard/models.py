@@ -9,7 +9,7 @@ from slugify import slugify
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     rooms = models.IntegerField(verbose_name='Количество комнат')
-    square = models.FloatField(verbose_name='Площадь квартиры')
+    square = models.DecimalField(max_digits=4, decimal_places=1,verbose_name='Площадь квартиры')
     floor = models.IntegerField(verbose_name='Этаж')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Стоимость объекта')
     city = models.CharField(max_length=200,verbose_name='Адрес объекта')
@@ -18,7 +18,7 @@ class Post(models.Model):
     apartment = models.CharField(max_length=200,verbose_name='Номер квартиры')
     metro = models.CharField(max_length=200, verbose_name='Метро')
     text = models.TextField(verbose_name='Описание объекта')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='posts')
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания', editable=False)
     image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=200, unique=True, editable=False, null=True)

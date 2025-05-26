@@ -19,7 +19,16 @@
 Адрес: {{ post.city }}, {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}
 <p>Метро {{ post.metro }}</p>
 <p>{{ post.text }}</p>
-<i>{{ post.author }}</i>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'bboard:user_info' user_id=post.author.pk %}">
+        <i>{{ post.author }}</i>
+    </a>
+{% else %}
+    <i>{{ post.author }}</i>
+{% endif %}
+
+
 <p><i>{{ post.created_at }}</i></p>
 
 {% if user == post.author %}
@@ -36,6 +45,7 @@
         </div>
     </div>
 {% endif %}
+
 {% if user.is_superuser %}
     <div class="btn-actions">
         <div class="btn-del-post">

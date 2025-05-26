@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
+
 
 
 def index(request):
@@ -118,6 +120,19 @@ def delete_post(request, pk):
         return redirect('bboard:index')
     return render(request, template_name='bboard/post_delete.html', context=context)
 
+def user_posts(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    # posts = user.posts.all()
+    posts = Post.objects.filter(author=user).select_related('author')
+    context = {'user': user, 'posts': posts}
+    return render(request, template_name='bboard/user_posts.html', context=context)
+
+
+@login_required
+def user_info(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    context = {'user': user}
+    return render(request, template_name='bboard/user_info.html', context=context)
 
 def page_not_found(request, exception):
     return render(request, template_name='bboard/404.html', context={'title': '404'})
