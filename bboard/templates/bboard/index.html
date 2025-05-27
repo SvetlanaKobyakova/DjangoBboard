@@ -4,6 +4,14 @@
 {% block content %}
 <h1>Объявления</h1>
 
+<div>
+    <form action="" method="get" style="display: flex; justify-content: end; margin-right: 50px;">
+        <input type="search" name="query">
+        <button type="submit">Поиск</button>
+    </form>
+</div>
+
+
 <!--<img src="{% static 'img/1.jpg' %}" width="200px" height="auto"-->
 <div class="post-list">
     {% for post in page_obj %}
@@ -22,7 +30,7 @@
             </div>
 
             <h5>Цена {{ post.price }}</h5>
-            Адрес: {{ post.city }}, {{ post.street }}, д.{{ post.house }}, кв.{{ post.apartment }}
+            Адрес: {{ post.city }}, ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}
             <p>Метро {{ post.metro }}</p>
             <a href="{% url 'bboard:user_posts' user_id=post.author.pk %}">
                 <i>{{ post.author }}</i>

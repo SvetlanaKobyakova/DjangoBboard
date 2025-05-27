@@ -21,13 +21,13 @@ from .models import Post
 class PostForm(forms.ModelForm):
     # дополняем конструктор родительского класса
     def __init__(self, *args, **kwargs):
-        # получаем author из именованных аргументов (его передали во views
+        # получаем author из именованных аргументов (его передали во views)
         author = kwargs.pop('author')
         # вызываем конструктор родительсого
         super().__init__(*args, **kwargs)
         # устанавливаем начальное значение поля author
         self.fields['author'].initial = author
-        # отключаем видимость этогополя в форме
+        # отключаем видимость этого поля в форме
         self.fields['author'].disabled = True
         self.fields['author'].widget = forms.HiddenInput()
 
@@ -37,7 +37,7 @@ class PostForm(forms.ModelForm):
                   'floor', 'price','city',
                   'metro', 'street', 'house',
                   'apartment', 'text', 'image',
-                  'author'
+                  'author',
                   )
 
         labels = {
