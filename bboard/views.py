@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Q
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, FilterForm
 
 
 
@@ -19,10 +20,12 @@ def index(request):
     page_number = request.GET.get('page')
     # получаем объекты для текущей страницы
     page_obj = paginator.get_page(page_number)
+    filter_form = FilterForm
     context = {
         'title':'Главная страница',
         'page_obj': page_obj,
-        'count_posts': count_posts
+        'count_posts': count_posts,
+        'filter_form': filter_form
     }
     return render(request, template_name='bboard/index.html', context=context)
 
@@ -145,3 +148,21 @@ def forbidden(request, exception):
 def server_error(request):
     return render(request, template_name='bboard/500.html', context={'title': '500'})
 
+
+def search_post(request):
+    query = request.GET.get('query')
+    query_text = Q(title__icontains=query) | Q(text__icontains=query) & Q(rooms__icontains=query)
+    results = Post.objects.filter(query_text)
+    per_page = 4
+    paginator = Paginator(results, per_page)
+    # получаем номер страницы из URL
+    page_number = request.GET.get('page')
+    # получаем объекты для текущей страницы
+    page_obj = paginator.get_page(page_number)
+    count_posts = results.count()
+    context = {
+        'title': 'Главная страница',
+        'page_obj': page_obj,
+        'count_posts': count_posts
+    }
+    return render(request, template_name='bboard/index.html', context=context)

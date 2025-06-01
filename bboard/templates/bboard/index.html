@@ -5,71 +5,67 @@
 <h1>Объявления</h1>
 
 <div>
-    <form action="" method="get" style="display: flex; justify-content: end; margin-right: 50px;">
+    <form action="{% url 'bboard:search_post' %}" method="get" style="display: flex; justify-content: end; margin-right: 50px;">
         <input type="search" name="query">
         <button type="submit">Поиск</button>
     </form>
 </div>
 
+<div>
+    <form action="" method="get">
+        {{ filter_form.as_p }}
+<!--        {{ filter_form.created_at }}-->
+        <button type="submit">Фильтровать</button>
+    </form>
+</div>
 
-<!--<img src="{% static 'img/1.jpg' %}" width="200px" height="auto"-->
-<div class="post-list">
-    {% for post in page_obj %}
-        <div class="post-item">
 
-            <h4><b><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></b></h4>
-            {{ post.rooms }}-комнатная, {{ post.square }} кв.м
-            <p>{{ post.floor }} этаж</p>
+{% if page_obj|length == 0 %}
+    <h2>По вашему запросу не найдено ни одного поста!</h2>
+{% else %}
+    <div class="post-list">
+        {% for post in page_obj %}
+            <div class="post-item">
 
-            <div class="post-image">
-                {% if post.image %}
-                    <p><img src="{{ post.image.url }}" width="200px" height="auto"></p>
-                {% else %}
-                    <p><img src="{% static 'img/no_image.png' %}" width="200px" height="auto"></p>
-                {% endif %}
+                <h4><b><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></b></h4>
+                {{ post.rooms }}-комнатная, {{ post.square }} кв.м
+                <p>{{ post.floor }} этаж</p>
+
+                <div class="post-image">
+                    {% if post.image %}
+                        <p><img src="{{ post.image.url }}" width="200px" height="auto"></p>
+                    {% else %}
+                        <p><img src="{% static 'img/no_image.png' %}" width="200px" height="auto"></p>
+                    {% endif %}
+                </div>
+
+                <h5>Цена {{ post.price }}</h5>
+                Адрес: {{ post.city }}, ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}
+                <p>Метро {{ post.metro }}</p>
+                <a href="{% url 'bboard:user_posts' user_id=post.author.pk %}">
+                    <i>{{ post.author }}</i>
+                </a>
+                <p><i>{{ post.created_at }}</i></p>
             </div>
+        {% endfor %}
+    </div>
 
-            <h5>Цена {{ post.price }}</h5>
-            Адрес: {{ post.city }}, ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}
-            <p>Метро {{ post.metro }}</p>
-            <a href="{% url 'bboard:user_posts' user_id=post.author.pk %}">
-                <i>{{ post.author }}</i>
-            </a>
-            <p><i>{{ post.created_at }}</i></p>
-        </div>
-    {% endfor %}
-</div>
-
-<!--<div class="card" style="width: 18rem;">-->
-<!--        <ul class="list-group list-group-flush">-->
-<!--            <li class="list-group-item"><b>Недвижимость</b></li>-->
-<!--            <li class="list-group-item">-->
-<!--                <a href="#">Квартиры</a>-->
-<!--            </li>-->
-<!--            <li class="list-group-item">-->
-<!--                <a href="#">Дома, дачи, коттеджи</a>-->
-<!--            </li>-->
-<!--            <li class="list-group-item">-->
-<!--                <a href="#">Земельные участки</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo;Первая</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-        {% endif %}
-        <span class="current">
-            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo;Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>
+            {%  endif %}
         </span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>
-        {%  endif %}
-    </span>
-</div>
+    </div>
+{% endif %}
 
 <div class="footer">
     <p>&copy; 2025 Сайт объявлений.</p>

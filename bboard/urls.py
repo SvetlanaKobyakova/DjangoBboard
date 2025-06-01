@@ -1,10 +1,11 @@
 from django.urls import path
 from bboard.views import (index, about, add_post,
                           read_post, update_post, delete_post,
-                          user_posts, user_info)
+                          user_posts, user_info, search_post)
 
 app_name = 'bboard'
 urlpatterns = [
+    path('search/', search_post, name='search_post'),
     path('about/', about, name='about'),
     path('post/<int:pk>/delete/', delete_post, name='delete_post'),
     path('post/user/info/<int:user_id>/', user_info, name='user_info'),
