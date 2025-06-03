@@ -151,8 +151,9 @@ def server_error(request):
 
 def search_post(request):
     query = request.GET.get('query')
-    query_text = Q(title__icontains=query) | Q(text__icontains=query) & Q(rooms__icontains=query)
+    query_text = Q(title__icontains=query) | Q(metro__icontains=query)
     results = Post.objects.filter(query_text)
+
     per_page = 4
     paginator = Paginator(results, per_page)
     # получаем номер страницы из URL
@@ -164,5 +165,30 @@ def search_post(request):
         'title': 'Главная страница',
         'page_obj': page_obj,
         'count_posts': count_posts
+    }
+    return render(request, template_name='bboard/index.html', context=context)
+
+def filter_post(request):
+    author_id = request.GET.get('author')
+    if not author_id:
+        results = Post.objects.all()
+    else:
+        author = User.objects.get(pk=author_id)
+        query_text = Q(author__exact=author)
+        results = Post.objects.filter(query_text)
+
+    per_page = 4
+    paginator = Paginator(results, per_page)
+    # получаем номер страницы из URL
+    page_number = request.GET.get('page')
+    # получаем объекты для текущей страницы
+    page_obj = paginator.get_page(page_number)
+    count_posts = results.count()
+    filter_form = FilterForm
+    context = {
+        'title': 'Главная страница',
+        'page_obj': page_obj,
+        'count_posts': count_posts,
+        'filter_form': filter_form
     }
     return render(request, template_name='bboard/index.html', context=context)

@@ -12,9 +12,8 @@
 </div>
 
 <div>
-    <form action="" method="get">
+    <form action="{% url 'bboard:filter_post' %}" method="get" style="display:flex; justify-content:flex-end; margin-right:36px; margin-top:25px">
         {{ filter_form.as_p }}
-<!--        {{ filter_form.created_at }}-->
         <button type="submit">Фильтровать</button>
     </form>
 </div>
