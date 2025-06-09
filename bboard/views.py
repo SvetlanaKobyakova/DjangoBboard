@@ -77,22 +77,12 @@ def update_post(request, pk):
     # post = Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        post_form = PostForm(data=request.POST, files=request.FILES)
+        post_form = PostForm(data=request.POST,
+                             files=request.FILES,
+                             instance=post,
+                             initial={'author':post.author})
         if post_form.is_valid():
-            post.title = post_form.cleaned_data['title']
-            post.rooms = post_form.cleaned_data['rooms']
-            post.square = post_form.cleaned_data['square']
-            post.floor = post_form.cleaned_data['floor']
-            post.price = post_form.cleaned_data['price']
-            post.metro = post_form.cleaned_data['metro']
-            post.city = post_form.cleaned_data['city']
-            post.street = post_form.cleaned_data['street']
-            post.house = post_form.cleaned_data['house']
-            post.apartment = post_form.cleaned_data['apartment']
-            post.text = post_form.cleaned_data['text']
-            post.author = post_form.cleaned_data['author']
-            post.image = post_form.cleaned_data['image']
-            post.save()
+            post_form.save()
             return redirect('bboard:read_post', slug=post.slug)
         return None
     else:
