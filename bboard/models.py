@@ -23,8 +23,15 @@ class Post(models.Model):
     image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=200, unique=True, editable=False, null=True)
 
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+        slug_title = slugify(self.title)
+        slug = f'{slug_title}-{self.pk}'
+        self.slug = slug
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
