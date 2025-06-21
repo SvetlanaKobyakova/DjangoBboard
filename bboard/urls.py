@@ -17,4 +17,3 @@ urlpatterns = [
     path('post/', add_post, name='add_post'),
     path('', index, name='index'),
 ]
-
