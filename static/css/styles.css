@@ -10,7 +10,8 @@ body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+  /*  background-color: #f4f4f4; */
+    background-color: #C0C0C0;
     margin: 0;
     padding: 20px;
 }
@@ -78,4 +79,60 @@ body {
     font-size: 12px;
     color: #999;
     margin-bottom: 10px;
+}
+  /* нав-бар */
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #383C3C; /* Цвет фона навигационной панели */
+    color: white;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.search-container {
+    margin-left: auto; /* Это ключевое свойство для выравнивания вправо */
+    display: flex;
+}
+
+ .search-form {
+    display: flex;
+}
+
+.footer {
+    background-color: #383C3C;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    padding-bottom: 15px;
+    padding-top: 25px;
+}
+
+/* a:link {
+    color:blue;
+    text-decoration:none
+} */
+
+.bboard {
+    text-shadow: -5px -4px 3px #999;
+    margin-top: 0;
+    margin-bottom: 0px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--bs-heading-color);
+    text-align: auto;
+}
+
+.search-btn {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 30px;
+}
+
+.pagination {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 475px;
 }

@@ -1,7 +1,10 @@
 {% extends 'bboard/base.html' %}
 
 {% block content %}
-<h3>Информация о пользователе</h3>
+
+<div class="bboard">
+    <h3>Информация о пользователе</h3>
+</div>
 
 <div>Логин - {{ user.username }}</div>
 <div>Имя - {{ user.first_name }}</div>

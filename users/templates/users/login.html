@@ -1,7 +1,11 @@
 {% extends 'bboard/base.html' %}
 
 {% block content %}
-<h3>Пожалуйста, войдите на сайт</h3>
+
+<div class="bboard">
+    <h3>Пожалуйста, войдите на сайт</h3>
+</div>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

@@ -3,21 +3,24 @@
 {% load custom_tags %}
 
 {% block content %}
-<h1>Объявления</h1>
+<div class="bboard">
+    <h1>Каталог квартир</h1>
+</div>
 
-<div>
-    <form action="{% url 'bboard:search_post' %}" method="get" style="display: flex; justify-content: end; margin-right: 50px;">
+<div class="search-btn">
+    <form action="{% url 'bboard:search_post' %}" method="get">
         <input type="search" name="query">
         <button type="submit">Поиск</button>
     </form>
 </div>
 
-<div>
-    <form action="{% url 'bboard:filter_post' %}" method="get" style="display:flex; justify-content:flex-end; margin-right:36px; margin-top:25px">
-        {{ filter_form.as_p }}
-        <button type="submit">Фильтровать</button>
-    </form>
-</div>
+<!--<div>-->
+<!--    <form action="{% url 'bboard:filter_post' %}" method="get"-->
+<!--          style="display:flex; justify-content:flex-end; margin-right:36px; margin-top:25px;">-->
+<!--        {{ filter_form.as_p }}-->
+<!--        <button type="submit">Фильтровать</button>-->
+<!--    </form>-->
+<!--</div>-->
 
 
 {% if page_obj|length == 0 %}
