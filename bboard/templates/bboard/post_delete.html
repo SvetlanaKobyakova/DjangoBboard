@@ -6,15 +6,16 @@
     <h3>Удаление объявления</h3>
 </div>
 
-<p>Автор - {{ post.author }}</p>
-<p>Заголовок - {{ post.title }}</p>
+<div class="post-delete" style="padding-left: 30px;">
+    <p>Автор - {{ post.author }}</p>
+    <p>Заголовок - {{ post.title }}</p>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Удалить</button>
-    <a href="{% url 'bboard:index' %}">
-        <button type="button">Отменить</button>
-    </a>
-</form>
-
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+        <a href="{% url 'bboard:index' %}">
+            <button type="button">Отменить</button>
+        </a>
+    </form>
+</div>
 {% endblock content %}

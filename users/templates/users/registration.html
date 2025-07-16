@@ -6,15 +6,17 @@
     <h3>Регистрация пользователя</h3>
 </div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ register_form }}
-    {% if register_form.username.errors %}
-    {% for error in register_form.username.errors %}
-    <b>{{ error }}</b>
-    {% endfor %}
-    {% endif %}
-    <button type="submit">Зарегистрироваться</button>
-</form>
+<div class="registration" style="padding-left: 30px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ register_form }}
+        {% if register_form.username.errors %}
+        {% for error in register_form.username.errors %}
+        <b>{{ error }}</b>
+        {% endfor %}
+        {% endif %}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
 
 {% endblock content %}

@@ -5,12 +5,12 @@
 <div class="bboard">
     <h3>Информация о пользователе {{ user.username }}</h3>
 </div>
-
-<div>Логин - {{ user.username }}</div>
-<div>Имя - {{ user.first_name }}</div>
-<div>Фамилия - {{ user.last_name }}</div>
-<div>Электронная почта - {{ user.email }}</div>
-<div>Дата регистрации: {{ user.date_joined }}</div>
-
+<div class="user-info" style="padding-left: 30px;">
+    <div>Логин - {{ user.username }}</div>
+    <div>Имя - {{ user.first_name }}</div>
+    <div>Фамилия - {{ user.last_name }}</div>
+    <div>Электронная почта - {{ user.email }}</div>
+    <div>Дата регистрации: {{ user.date_joined }}</div>
+</div>
 
 {% endblock content %}

@@ -6,10 +6,12 @@
     <h3>Пожалуйста, войдите на сайт</h3>
 </div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-</form>
+<div class="login" style="padding-left: 30px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Войти</button>
+    </form>
+</div>
 
 {% endblock content %}

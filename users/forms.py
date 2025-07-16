@@ -75,3 +75,4 @@ class CustomPasswordChangeForm(SetPasswordForm):
             raise ValidationError('Введенные пароли не совпадают')
 
         return cleaned_data
+
