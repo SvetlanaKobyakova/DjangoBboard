@@ -141,7 +141,7 @@ def server_error(request):
 
 def search_post(request):
     query = request.GET.get('query')
-    query_text = Q(title__icontains=query) | Q(metro__icontains=query)
+    query_text = Q(title__icontains=query) | Q(metro__icontains=query) | Q(street__icontains=query)
     results = Post.objects.filter(query_text)
 
     per_page = 4

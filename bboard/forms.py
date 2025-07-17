@@ -41,6 +41,7 @@ class PostForm(forms.ModelForm):
                   'metro', 'street', 'house',
                   'apartment', 'text', 'image',
                   'author',
+                  'phone_number',
                   )
 
         labels = {
@@ -55,7 +56,8 @@ class PostForm(forms.ModelForm):
             'house': 'Номер дома',
             'apartment': 'Номер квартиры',
             'text': 'Описание объекта',
-            'image': 'Изображение'
+            'image': 'Изображение',
+            'phone_number': 'Номер телефона',
         }
 
 class FilterForm(forms.Form):

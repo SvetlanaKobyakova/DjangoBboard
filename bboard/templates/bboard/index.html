@@ -43,8 +43,9 @@
                 </div>
 
                 <h5>Цена {{ post.price }}</h5>
-                Адрес: {{ post.city }}, ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}
-                <p>Метро {{ post.metro }}</p>
+                Адрес: {{ post.city }},
+                <p>ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}</p>
+                <p>Метро: {{ post.metro }}</p>
                 <a href="{% url 'bboard:user_posts' user_id=post.author.pk %}">
                     <i>{{ post.author }}</i>
                 </a>

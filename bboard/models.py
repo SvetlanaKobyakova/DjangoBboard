@@ -22,6 +22,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания', editable=False)
     image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=200, unique=True, editable=False, null=True)
+    phone_number = models.CharField(max_length=12, blank=True, null=True)
 
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.title)
