@@ -44,3 +44,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# новая модель для загрузки несколько фото
+class Photo(models.Model):
+    image = models.ImageField(upload_to='upload/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Photo {self.id}"

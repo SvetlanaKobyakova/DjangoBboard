@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Post
+from .models import Photo
 
 
 # class PostForm(forms.Form):
@@ -68,3 +69,18 @@ class FilterForm(forms.Form):
                                  widget=forms.DateInput(attrs={'type': 'date'}),
                                  input_formats=['%Y-%m-%d'],
                                  required=False)
+
+    # новая форма для загрузки несколько фото
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True  # Разрешаем выбор нескольких файлов
+
+class MultiplePhotoForm(forms.ModelForm):
+    image = forms.FileField(
+        widget=MultipleFileInput(attrs={'multiple': True}),
+        label='Выберите фото',
+        help_text='Можно выбрать несколько файлов'
+    )
+
+    class Meta:
+        model = Photo
+        fields = ['image']

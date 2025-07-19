@@ -2,7 +2,7 @@ from django.urls import path
 from bboard.views import (index, about, add_post,
                           read_post, update_post, delete_post,
                           user_posts, user_info, search_post,
-                          filter_post)
+                          filter_post, upload_photos)
 
 app_name = 'bboard'
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
     path('post/<slug:slug>/', read_post, name='read_post'),
     path('post/', add_post, name='add_post'),
     path('', index, name='index'),
+    path('upload/', upload_photos, name='upload_photos'),
 ]

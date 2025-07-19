@@ -5,7 +5,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Post
 from .forms import PostForm, FilterForm
-
+from .forms import MultiplePhotoForm
+from .models import Photo
 
 
 def index(request):
@@ -182,3 +183,21 @@ def filter_post(request):
         'filter_form': filter_form
     }
     return render(request, template_name='bboard/index.html', context=context)
+
+ # новое представление для загрузки несколько фото
+def upload_photos(request):
+    if request.method == 'POST':
+        form = MultiplePhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            files = request.FILES.getlist('image')  # Получаем список файлов
+            for file in files:
+                Photo.objects.create(images=file)  # Создаем запись для каждого файла
+            return redirect('bboard/index.html')  # Замените на ваш URL
+    else:
+        form = MultiplePhotoForm()
+
+        # MAX_FILES = 5
+        # if len('files') > MAX_FILES:
+        #     form.add_error('image', f'Максимум {MAX_FILES} файлов.')
+
+    return render(request, 'bboard/upload.html', {'form': form})

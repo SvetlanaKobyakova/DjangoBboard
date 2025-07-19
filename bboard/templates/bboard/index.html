@@ -3,15 +3,24 @@
 {% load custom_tags %}
 
 {% block content %}
-<div class="bboard">
-    <h1>Каталог квартир</h1>
-</div>
+<!--<div class="bboard">-->
+<!--    <h1>Каталог квартир</h1>-->
+<!--</div>-->
 
-<div class="search-btn">
-    <form action="{% url 'bboard:search_post' %}" method="get">
-        <input type="search" name="query">
-        <button type="submit">Поиск</button>
-    </form>
+<!--<div class="search-btn">-->
+<!--    <form action="{% url 'bboard:search_post' %}" method="get">-->
+<!--        <input type="search" name="query">-->
+<!--        <button type="submit">Поиск</button>-->
+<!--    </form>-->
+<!--</div>-->
+<div class="bboard" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1>Каталог квартир</h1>
+    <div class="search-btn">
+        <form action="{% url 'bboard:search_post' %}" method="get" style="display: flex; gap: 10px;">
+            <input type="search" name="query" placeholder="Поиск..." style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <button type="submit" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Поиск</button>
+        </form>
+    </div>
 </div>
 
 <!--<div>-->
@@ -44,7 +53,7 @@
 
                 <h5>Цена {{ post.price }}</h5>
                 Адрес: {{ post.city }},
-                <p>ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}</p>
+                <p>ул. {{ post.street }}, дом {{ post.house }}</p>
                 <p>Метро: {{ post.metro }}</p>
                 <a href="{% url 'bboard:user_posts' user_id=post.author.pk %}">
                     <i>{{ post.author }}</i>
@@ -54,25 +63,56 @@
         {% endfor %}
     </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo;Первая</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-            {% endif %}
-            <span class="current">
-                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-            </span>
-            {% if page_obj.has_next %}
-                <a href="?{% url_replace request 'page' page_obj.next_page_number %}">Следующая</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>
-            {%  endif %}
-        </span>
-    </div>
-{% endif %}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">Первая</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!--    <div class="pagination">-->
+<!--        <span class="step-links">-->
+<!--            {% if page_obj.has_previous %}-->
+<!--                <a href="?page=1">&laquo;Первая</a>-->
+<!--                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>-->
+<!--            {% endif %}-->
+<!--            <span class="current">-->
+<!--                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}-->
+<!--            </span>-->
+<!--            {% if page_obj.has_next %}-->
+<!--                <a href="?{% url_replace request 'page' page_obj.next_page_number %}">Следующая</a>-->
+<!--                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя&raquo;</a>-->
+<!--            {%  endif %}-->
+<!--        </span>-->
+<!--    </div>-->
+<!--{% endif %}-->
 
 <div class="footer">
-    <p>&copy; 2025 Сайт объявлений.</p>
+    <p>&copy; 2025 Сайт объявлений. <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+</svg> +7(911)707-52-15</p>
 </div>
 
 
