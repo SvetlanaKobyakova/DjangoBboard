@@ -201,3 +201,4 @@ def upload_photos(request):
         #     form.add_error('image', f'Максимум {MAX_FILES} файлов.')
 
     return render(request, 'bboard/upload.html', {'form': form})
+

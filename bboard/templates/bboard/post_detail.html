@@ -36,6 +36,14 @@
     </div>
 </div>
 
+<div>
+    <form action="" method="get">
+        <button type="submit">
+            В избранное ❤️
+        </button>
+    </form>
+</div>
+
 <div class="aythor" style="padding-left: 30px;">
     {% if user.is_authenticated %}
     <a href="{% url 'bboard:user_info' user_id=post.author.pk %}">
