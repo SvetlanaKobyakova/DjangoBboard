@@ -2,16 +2,44 @@
 
 {% block content %}
 
-<div class="bboard">
-    <h3>Пожалуйста, войдите на сайт</h3>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Пожалуйста, войдите на сайт</h2>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Имя пользователя</label>
+                            <input type="text" class="form-control" id="id_username" name="username" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="id_password" name="password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="login" style="padding-left: 30px;">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Войти</button>
-    </form>
-</div>
+<!--<div class="bboard">-->
+<!--    <h3>Пожалуйста, войдите на сайт</h3>-->
+<!--</div>-->
+
+<!--<div class="login" style="padding-left: 30px;">-->
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ form.as_p }}-->
+<!--        <button type="submit">Войти</button>-->
+<!--    </form>-->
+<!--</div>-->
 
 {% endblock content %}

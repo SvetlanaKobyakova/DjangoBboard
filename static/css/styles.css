@@ -111,16 +111,23 @@ body {
 }
 
 
-.bboard {
+.bboard-main {
     text-shadow: -5px -4px 3px #999;
-    margin-top: 0;
-    margin-bottom: 0px;
     font-weight: 500;
     line-height: 1.2;
     color: var(--bs-heading-color);
     text-align: auto;
     padding-left: 30px;
     margin-bottom: 15px;
+
+}
+
+.bboard {
+    text-shadow: -5px -4px 3px #999;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .search-btn {
