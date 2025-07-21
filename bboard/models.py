@@ -53,3 +53,18 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo {self.id}"
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites', verbose_name='Пользователь')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='favorited_by', verbose_name='Объявление')
+    added_at = models.DateTimeField(auto_now_add=True, verbose_name='Добавлено')
+
+    class Meta:
+        unique_together = ('user', 'post')
+        verbose_name = 'Избранное объявление'
+        verbose_name_plural = 'Избранные объявления'
+
+    def str(self):
+        return f"{self.user.username} {self.post.title}"
+
+

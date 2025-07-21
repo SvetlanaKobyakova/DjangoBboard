@@ -21,7 +21,7 @@
         <a class="text-white text-decoration-none" style="font-weight: bold; "
            aria-current="page" href="{% url 'bboard:index' %}">Главная</a>
         <a class="text-white text-decoration-none" href="{% url 'bboard:add_post' %}">Добавить объявление</a>
-        <a class="text-white text-decoration-none" href="">Избранное</a>
+        <a class="text-white text-decoration-none" href="{% url 'bboard:favorites_list' %}">Избранное</a>
         <a class="text-white text-decoration-none" href="{% url 'bboard:about' %}">О сайте</a>
         {% if not user.is_authenticated %}
         <a class="text-white text-decoration-none" href="{% url 'users:register' %}">Регистрация</a>

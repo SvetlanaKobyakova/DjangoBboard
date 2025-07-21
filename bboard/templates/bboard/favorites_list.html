@@ -1,0 +1,39 @@
+{% extends 'bboard/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Мои избранные объявления</h2>
+
+    {% if favorites %}
+    <div class="row">
+        {% for favorite in favorites %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if favorite.post.image %}
+                <img src="{{ favorite.post.image.url }}" class="card-img-top" alt="{{ favorite.post.title }}">
+                {% endif %}
+
+                <div class="card-footer bg-white">
+                    <a href="{{ favorite.post.get_absolute_url }}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                    <a href="{% url 'bboard:remove_from_favorites' favorite.post.id %}"
+                       class="btn btn-sm btn-outline-danger float-end">
+                        <i class="bi bi-heart-fill"></i> Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        У вас пока нет избранных объявлений.
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+

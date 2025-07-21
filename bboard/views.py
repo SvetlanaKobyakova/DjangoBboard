@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Post
+from .models import Post, Favorite
 from .forms import PostForm, FilterForm
 from .forms import MultiplePhotoForm
 from .models import Photo
+from django.contrib import messages
 
 
 def index(request):
@@ -201,4 +202,23 @@ def upload_photos(request):
         #     form.add_error('image', f'Максимум {MAX_FILES} файлов.')
 
     return render(request, 'bboard/upload.html', {'form': form})
+
+
+@login_required
+def favorites_list(request):
+    favorites = Favorite.objects.filter(user=request.user).select_related('post')
+    context = {'favorites': favorites, 'title': 'Мои избранные посты'}
+    return render(request, 'bboard/favorites_list.html', context)
+
+@login_required
+def add_to_favorites(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    Favorite.objects.get_or_create(user=request.user, post=post)
+    return redirect('bboard:read_post', slug=slug)
+
+@login_required
+def remove_from_favorites(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    Favorite.objects.filter(user=request.user, post=post).delete()
+    return redirect('bboard:read_post', slug=slug)
 

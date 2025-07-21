@@ -36,13 +36,6 @@
     </div>
 </div>
 
-<div>
-    <form action="" method="get">
-        <button type="submit">
-            В избранное ❤️
-        </button>
-    </form>
-</div>
 
 <div class="aythor" style="padding-left: 30px;">
     {% if user.is_authenticated %}
@@ -57,9 +50,22 @@
     <p><i>{{ post.created_at }}</i></p>
 </div>
 
-
-{% if user == post.author %}
 <div class="btn-actions" style="padding-left: 30px;">
+    <div class="btn-favorites">
+        {% if user.is_authenticated %}
+        {% if post.id in user_favorites %}
+        <a href="{% url 'bboard:remove_from_favorites' post.slug %}">
+            <button type="button">Удалить из избранного</button>
+        </a>
+        {% else %}
+
+        <a href="{% url 'bboard:add_to_favorites' post.slug %}">
+            <button type="button">Добавить в избранное ❤️</button>
+        </a>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% if user == post.author %}
     <div class="btn-edit-post">
         <a href="{% url 'bboard:update_post' pk=post.id %}">
             <button type="button">Редактировать</button>
