@@ -1,38 +1,77 @@
 {% extends 'bboard/base.html' %}
 {% load static %}
 
-
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">Мои избранные объявления</h2>
 
-    {% if favorites %}
-    <div class="row">
-        {% for favorite in favorites %}
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                {% if favorite.post.image %}
-                <img src="{{ favorite.post.image.url }}" class="card-img-top" alt="{{ favorite.post.title }}">
-                {% endif %}
+<div class="card shadow" style="background-color: #C0C0C0;">
+    <div class="bboard">
+        <h2>Мои избранные объявления</h2>
+    </div>
 
-                <div class="card-footer bg-white">
-                    <a href="{{ favorite.post.get_absolute_url }}" class="btn btn-sm btn-outline-primary">Подробнее</a>
-                    <a href="{% url 'bboard:remove_from_favorites' favorite.post.id %}"
-                       class="btn btn-sm btn-outline-danger float-end">
-                        <i class="bi bi-heart-fill"></i> Удалить
-                    </a>
+    <div class="card-body">
+
+        {% if favorites %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for favorite in favorites %}
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    {% if favorite.post.image %}
+                    <img src="{{ favorite.post.image.url }}" class="card-img-top" alt="{{ favorite.post.title }}"
+                         style="height: 200px; object-fit: cover;">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ favorite.post.title }}</h5>
+                        <div class="card-text mb-2">
+                            <p class="mb-1">
+                                <i class="bi bi-geo-alt"></i>
+                                {{ favorite.post.city }}, ул. {{ favorite.post.street }}, д. {{ favorite.post.house }}
+                            </p>
+                            <p class="mb-1">
+                                <i class="bi bi-subway"></i>
+                                Метро: {{ favorite.post.metro }}
+                            </p>
+                            <p class="mb-1">
+                                <i class="bi bi-door-open"></i>
+                                {{ favorite.post.rooms }}-комн., {{ favorite.post.square }} м²
+                            </p>
+                            <p>
+                                <i class="bi bi-building"></i>
+                                Этаж: {{ favorite.post.floor }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ favorite.post.get_absolute_url }}" class="btn btn-sm btn-outline-primary"
+                               style="padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer;">
+                                <i class="bi bi-eye"></i> Подробнее
+                            </a>
+                            <a href="{% url 'bboard:remove_from_favorites' favorite.post.slug %}"
+                               class="btn btn-sm btn-outline-danger" style="padding: 8px 16px;
+                                   background-color: rgb(245, 54, 54); color: white; border: none;
+                                   border-radius: 4px; cursor: pointer;">
+                                <i class="bi bi-heart-fill"></i> Удалить
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <div class="text-center py-4">
+            <i class="bi bi-heart text-muted" style="font-size: 3rem;"></i>
+            <h4 class="my-3">У вас пока нет избранных объявлений</h4>
+            <a href="{% url 'bboard:index' %}" class="btn btn-primary mt-2">
+                <i class="bi bi-house-door"></i> На главную
+            </a>
+        </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="alert alert-info">
-        У вас пока нет избранных объявлений.
-    </div>
-    {% endif %}
 </div>
-
 
 {% endblock %}
 

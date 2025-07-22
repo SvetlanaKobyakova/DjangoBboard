@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="bboard">
-    <h3>Информация об объекте № {{ post.pk }}</h3>
+    <h2>Информация об объекте № {{ post.pk }}</h2>
 </div>
 
 <!--# отобразить информацию о посте, добавить детализацию по объявлению-->
@@ -33,6 +33,22 @@
         <div class="text">
             <p>{{ post.text }}</p>
         </div>
+
+        <div class="btn-favorites">
+            {% if user.is_authenticated %}
+            {% if post.id in user_favorites %}
+            <a href="{% url 'bboard:remove_from_favorites' post.slug %}">
+                <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer;">Удалить из избранного</button>
+            </a>
+            {% else %}
+            <a href="{% url 'bboard:add_to_favorites' post.slug %}">
+                <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer;">Добавить в избранное ❤️</button>
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -51,29 +67,17 @@
 </div>
 
 <div class="btn-actions" style="padding-left: 30px;">
-    <div class="btn-favorites">
-        {% if user.is_authenticated %}
-        {% if post.id in user_favorites %}
-        <a href="{% url 'bboard:remove_from_favorites' post.slug %}">
-            <button type="button">Удалить из избранного</button>
-        </a>
-        {% else %}
-
-        <a href="{% url 'bboard:add_to_favorites' post.slug %}">
-            <button type="button">Добавить в избранное ❤️</button>
-        </a>
-        {% endif %}
-        {% endif %}
-    </div>
     {% if user == post.author %}
     <div class="btn-edit-post">
         <a href="{% url 'bboard:update_post' pk=post.id %}">
-            <button type="button">Редактировать</button>
+            <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer;">Редактировать</button>
         </a>
     </div>
     <div class="btn-del-post">
         <a href="{% url 'bboard:delete_post' pk=post.id %}">
-            <button type="button">Удалить</button>
+            <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer;">Удалить</button>
         </a>
     </div>
 </div>

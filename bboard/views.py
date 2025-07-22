@@ -16,7 +16,7 @@ def index(request):
     posts = Post.objects.all().order_by('-created_at')
     count_posts = Post.objects.count()
     # показываем по три поста на странице
-    per_page = 4
+    per_page = 3
     paginator = Paginator(posts, per_page)
     # получаем номер страницы из URL
     page_number = request.GET.get('page')
@@ -146,7 +146,7 @@ def search_post(request):
     query_text = Q(title__icontains=query) | Q(metro__icontains=query) | Q(street__icontains=query)
     results = Post.objects.filter(query_text)
 
-    per_page = 4
+    per_page = 3
     paginator = Paginator(results, per_page)
     # получаем номер страницы из URL
     page_number = request.GET.get('page')
@@ -169,7 +169,7 @@ def filter_post(request):
         query_text = Q(author__exact=author)
         results = Post.objects.filter(query_text)
 
-    per_page = 4
+    per_page = 3
     paginator = Paginator(results, per_page)
     # получаем номер страницы из URL
     page_number = request.GET.get('page')

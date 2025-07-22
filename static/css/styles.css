@@ -190,4 +190,36 @@ body {
         text-align: justify;
     }
 
+/* стили для избранного */
+/* Общие стили для контейнера */
 
+
+/* Стили карточек */
+.card {
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Иконки в тексте */
+.bi {
+    margin-right: 5px;
+}
+
+/* Адаптивные отступы */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 15px auto;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
