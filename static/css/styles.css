@@ -191,9 +191,6 @@ body {
     }
 
 /* стили для избранного */
-/* Общие стили для контейнера */
-
-
 /* Стили карточек */
 .card {
     border-radius: 10px;
@@ -222,4 +219,77 @@ body {
     .card {
         margin-bottom: 20px;
     }
+}
+/* форма добавления объявления*/
+.myfield{
+    border:2px solid #ccc;
+    height:30px;
+    width:400px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_text{
+    border:2px solid #ccc;
+    height:200px;
+    width:480px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_title {
+    border:2px solid #ccc;
+    height:30px;
+    width:400px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_rooms{
+    border:2px solid #ccc;
+    height:30px;
+    width:332px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_square{
+    border:2px solid #ccc;
+    height:30px;
+    width:332px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_floor{
+    border:2px solid #ccc;
+    height:30px;
+    width:435px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_price{
+    border:2px solid #ccc;
+    height:30px;
+    width:435px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_city{
+    border:2px solid #ccc;
+    height:30px;
+    width:430px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_metro{
+    border:2px solid #ccc;
+    height:30px;
+    width:425px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_street{
+    border:2px solid #ccc;
+    height:30px;
+    width:425px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_house{
+    border:2px solid #ccc;
+    height:30px;
+    width:380px;
+    margin: 10px 10px 10px 0;
+}
+.myfield_apartment{
+    border:2px solid #ccc;
+    height:30px;
+    width:350px;
+    margin: 10px 10px 10px 0;
 }

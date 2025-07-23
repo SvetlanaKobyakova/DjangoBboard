@@ -10,14 +10,15 @@ class RegistrationForm(UserCreationForm):
     username = forms.CharField(label='Логин',
                                error_messages={
                                    'required': 'Пожалуйста, введите логин'
-                               })
-    first_name = forms.CharField(label='Имя')
-    last_name = forms.CharField(label='Фамилия')
-    email = forms.EmailField(label='Электронная почта')
+                               },
+                               widget=forms.TextInput(attrs={"class":"myfield"}))
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={"class":"myfield"}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={"class":"myfield"}))
+    email = forms.EmailField(label='Электронная почта', widget=forms.TextInput(attrs={"class":"myfield"}))
     password1 = forms.CharField(label='Пароль',
-                                widget=forms.PasswordInput)
+                                widget=forms.PasswordInput(attrs={"class":"myfield"}))
     password2 = forms.CharField(label='Подтвердите пароль',
-                                widget=forms.PasswordInput,
+                                widget=forms.PasswordInput(attrs={"class":"myfield"}),
                                 error_messages={
                                     'required': 'Пожалуйста, подтвердите пароль'
                                 })
@@ -28,7 +29,18 @@ class RegistrationForm(UserCreationForm):
                   'email', 'password1', 'password2')
 
 class NewRegistrationForm(forms.ModelForm):
-    password2 = forms.CharField(label='Подтвердите пароль', widget=forms.PasswordInput)
+    username = forms.CharField(label='Логин',
+                               error_messages={
+                                   'required': 'Пожалуйста, введите логин'
+                               },
+                               widget=forms.TextInput(attrs={"class": "myfield"}))
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={"class": "myfield"}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={"class": "myfield"}))
+    email = forms.EmailField(label='Электронная почта', widget=forms.TextInput(attrs={"class": "myfield"}))
+    password = forms.CharField(label='Пароль',
+                                widget=forms.PasswordInput(attrs={"class": "myfield"}))
+    password2 = forms.CharField(label='Подтвердите пароль', widget=forms.PasswordInput(attrs={"class":"myfield"}))
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name',

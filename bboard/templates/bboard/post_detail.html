@@ -66,18 +66,19 @@
     <p><i>{{ post.created_at }}</i></p>
 </div>
 
-<div class="btn-actions" style="padding-left: 30px;">
+<div class="btn-actions" style="padding-left: 30px; display: flex">
     {% if user == post.author %}
     <div class="btn-edit-post">
         <a href="{% url 'bboard:update_post' pk=post.id %}">
-            <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
-                                border: none; border-radius: 4px; cursor: pointer;">Редактировать</button>
+            <button type="button" style="margin-left: 50px; margin-bottom: 20px; padding: 8px 16px; background-color: #007bff; color: white;
+                                border: none; border-radius: 4px; cursor: pointer; ">Редактировать</button>
         </a>
     </div>
     <div class="btn-del-post">
         <a href="{% url 'bboard:delete_post' pk=post.id %}">
-            <button type="button" style="padding: 8px 16px; background-color: #007bff; color: white;
-                                border: none; border-radius: 4px; cursor: pointer;">Удалить</button>
+            <button type="button" style="margin-left: 30px; padding: 8px 16px;
+                                   background-color: rgb(245, 54, 54); color: white; border: none;
+                                   border-radius: 4px; cursor: pointer;">Удалить</button>
         </a>
     </div>
 </div>

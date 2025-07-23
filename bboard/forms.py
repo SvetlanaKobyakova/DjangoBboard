@@ -5,18 +5,28 @@ from .models import Photo
 
 
 # class PostForm(forms.Form):
-#     title = forms.CharField(max_length=200, label='Заголовок')
-#     rooms = forms.IntegerField(label='Количество комнат')
-#     square = forms.IntegerField(label='Общая площадь квартиры')
-#     floor = forms.IntegerField(label='Этаж')
-#     price = forms.DecimalField(max_digits=10, decimal_places=2, label='Цена')
-#     city = forms.CharField(max_length=200, label='Город')
-#     metro = forms.CharField(max_length=200, label='Метро')
-#     street = forms.CharField(max_length=200, label='Улица')
-#     house = forms.CharField(max_length=200, label='Номер дома')
-#     apartment = forms.CharField(max_length=200, label='Номер квартиры')
-#     text = forms.CharField(widget=forms.Textarea, label='Описание объекта')
-#     author = forms.ModelChoiceField(queryset=User.objects.all(), label='Автор')
+#     title = forms.CharField(max_length=200, label='Заголовок',
+#                             widget=forms.TextInput(attrs={"class":"myfield_title"}))
+#     rooms = forms.IntegerField(label='Количество комнат',
+#                                widget=forms.NumberInput(attrs={"class":"myfield_rooms"}))
+#     square = forms.IntegerField(label='Площадь квартиры',
+#                                 widget=forms.NumberInput(attrs={"class":"myfield_square"}))
+#     floor = forms.IntegerField(label='Этаж', widget=forms.NumberInput(attrs={"class":"myfield_floor"}))
+#     price = forms.DecimalField(max_digits=10, decimal_places=2, label='Цена',
+#                                widget=forms.NumberInput(attrs={"class":"myfield_price"}))
+#     city = forms.CharField(max_length=200, label='Город',
+#                            widget=forms.TextInput(attrs={"class":"myfield_city"}))
+#     metro = forms.CharField(max_length=200, label='Метро',
+#                             widget=forms.TextInput(attrs={"class":"myfield_metro"}))
+#     street = forms.CharField(max_length=200, label='Улица',
+#                              widget=forms.TextInput(attrs={"class":"myfield_street"}))
+#     house = forms.CharField(max_length=200, label='Номер дома',
+#                             widget=forms.NumberInput(attrs={"class":"myfield_house"}))
+#     apartment = forms.CharField(max_length=200, label='Номер квартиры',
+#                                 widget=forms.NumberInput(attrs={"class":"myfield_apartment"}))
+#     text = forms.CharField(widget=forms.Textarea(attrs={"class": "myfield_text"}), label='Описание объекта')
+#     author = forms.ModelChoiceField(queryset=User.objects.all(), label='Автор',
+#                                     widget=forms.TextInput(attrs={"class":"myfield"}))
 #     image = forms.ImageField(required=False, label='Изображение')
 
 class PostForm(forms.ModelForm):
@@ -42,7 +52,6 @@ class PostForm(forms.ModelForm):
                   'metro', 'street', 'house',
                   'apartment', 'text', 'image',
                   'author',
-                  'phone_number',
                   )
 
         labels = {
@@ -58,7 +67,6 @@ class PostForm(forms.ModelForm):
             'apartment': 'Номер квартиры',
             'text': 'Описание объекта',
             'image': 'Изображение',
-            'phone_number': 'Номер телефона',
         }
 
 class FilterForm(forms.Form):
