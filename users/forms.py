@@ -60,18 +60,18 @@ class CustomPasswordChangeForm(SetPasswordForm):
         label='Старый пароль',
         strip=False,
         widget=forms.PasswordInput(
-            attrs={'autocomlete': 'current-password', 'autofocus': True}
+            attrs={'autocomlete': 'current-password', 'autofocus': True, 'class': 'myfield_old_password'}
         ),
     )
     new_password1 = forms.CharField(
         label='Новый пароль',
         strip=False,
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'class': 'myfield_new_password1'})
     )
     new_password2 = forms.CharField(
-        label='Подтверждение нового пароля',
+        label='Подтвердите пароль',
         strip=False,
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'class': 'myfield_new_password2'})
     )
     def clean(self):
         cleaned_data = super().clean()
