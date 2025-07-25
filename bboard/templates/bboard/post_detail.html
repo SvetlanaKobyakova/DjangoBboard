@@ -28,7 +28,7 @@
     <div class="adress" style="padding-left: 30px;">
         <a>Адрес: <b>{{ post.city }}, ул. {{ post.street }}, дом {{ post.house }}, кв. {{ post.apartment }}</b></a>
         <p>Метро: <b>{{ post.metro }}</b></p>
-        <p>{{ post.rooms }}-комн.квартира, {{ post.square }} кв.м на {{ post.floor }} этаже</p>
+        <p>{{ post.rooms }}-комн.квартира, {{ post.square }} м² на {{ post.floor }} этаже</p>
 
         <div class="text">
             <p>{{ post.text }}</p>
@@ -61,7 +61,6 @@
     {% else %}
     <i>{{ post.author }}</i>
     {% endif %}
-    <p><i>тел. {{ post.phone_number }}</i></p>
 
     <p><i>{{ post.created_at }}</i></p>
 </div>

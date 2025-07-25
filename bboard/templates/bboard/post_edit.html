@@ -2,17 +2,22 @@
 
 {% block content %}
 
-<div class="bboard">
-    <h2>Редактировать объявление</h2>
-</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4" style="text-shadow: -5px -4px 3px #999;">Редактировать объявление</h2>
 
-<div class="post-edit" style="padding-left: 30px;">
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" style="padding: 8px 16px; background-color: #007bff; color: white;
-                                border: none; border-radius: 4px; cursor: pointer;">Изменить объявление</button>
-    </form>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Изменить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
